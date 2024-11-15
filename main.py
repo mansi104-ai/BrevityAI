@@ -13,7 +13,7 @@ model = T5ForConditionalGeneration.from_pretrained(model_name)
 model = model.to("cuda" if torch.cuda.is_available() else "cpu")
 
 # CSS Styling
-st.markdown("""
+st.markdown("""pip
     <style>
         .title {
             font-size: 2.5em;
