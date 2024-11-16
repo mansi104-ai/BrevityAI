@@ -3,7 +3,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/your-username/BrevityAI">
+  <a href="https://github.com/mansi104-ai/BrevityAI">
     <img src="/logo.png" alt="Logo" height="80">
   </a>
 
