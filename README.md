@@ -91,17 +91,17 @@ This section explains how to set up the project locally.
 
 2. Setup the environment:
    ```sh
-  python -m venv env
+   python -m venv env
 
-  source env/bin/activate  ( For Linux/MacOS )
-  
-  env\Scripts\activate     ( For Windows )
+   source env/bin/activate  ( For Linux/MacOS )
+
+   env\Scripts\activate     ( For Windows )
 
    ```
 
 3. Install the dependencies :
   ```sh
-  pip install -r requirements.txt
+   pip install -r requirements.txt
   ```
 
 4. Run the application : 
