@@ -123,17 +123,28 @@ if uploaded_file or manual_text.strip():
         min_length = st.slider("Minimum Summary Length", 10, 100, 60)
         length_penalty = st.slider("Length Penalty", 1.0, 3.0, 1.5)
 
+        # Toggle button for summary format choice
+        summary_format = st.radio(
+            "Select the summary format",
+            ("Paragraph", "Points")
+        )
+
         # Generate summary button
         if st.button("Generate Summary"):
             with st.spinner("Summarizing..."):
                 summary = summarize_text(extracted_text, max_length, min_length, length_penalty)
                 if summary:
-                    # Convert summary into points
-                    sentences = summary.split(". ")
-                    points = [sentence.strip() for sentence in sentences if sentence.strip()]
-                    st.subheader("Generated Summary (in Points)")
-                    for idx, point in enumerate(points, start=1):
-                        st.write(f"{idx}. {point}")
+                    if summary_format == "Points":
+                        # Convert summary into points
+                        sentences = summary.split(". ")
+                        points = [sentence.strip() for sentence in sentences if sentence.strip()]
+                        st.subheader("Generated Summary (in Points)")
+                        for idx, point in enumerate(points, start=1):
+                            st.write(f"{idx}. {point}")
+                    else:
+                        # Display as a paragraph
+                        st.subheader("Generated Summary (Paragraph)")
+                        st.write(summary)
 
                     # Save and download summary as PDF
                     pdf_output = create_pdf_in_memory(summary)
