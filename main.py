@@ -4,7 +4,7 @@ from transformers import T5Tokenizer, T5ForConditionalGeneration
 from PyPDF2 import PdfReader
 import json
 from io import BytesIO
-from fpdf import FPDF
+from fpdf import FPDF as FPDF2  # Using fpdf2 for Unicode support
 
 # Load T5 model and tokenizer
 model_name = "t5-small"
@@ -79,22 +79,22 @@ def summarize_text(text, max_length=200, min_length=100, length_penalty=1.5, sum
 def create_pdf_in_memory(summary_text):
     try:
         # Create a PDF object
-        pdf = FPDF()
+        pdf = FPDF2()
         pdf.add_page()
 
-        # Set font for the document
-        pdf.set_font("Arial", size=12)
+        # Add a Unicode-compatible font
+        pdf.add_font("FreeSerif", "", "FreeSerif.ttf", uni=True)  # Ensure font file is accessible
+        pdf.set_font("FreeSerif", size=12)
 
-        # Add text content, ensuring it handles long content correctly
+        # Add text content
         pdf.multi_cell(0, 10, summary_text)
 
         # Save the output to a BytesIO object
         pdf_output = BytesIO()
-        pdf.output(pdf_output, dest="S")  # 'S' saves to a string, instead of a file on disk
+        pdf.output(pdf_output)
         pdf_output.seek(0)  # Reset pointer to the start of the BytesIO object
         return pdf_output
     except Exception as e:
-        # Catch any exceptions and log them
         st.error(f"Error creating PDF: {e}")
         return None
 
