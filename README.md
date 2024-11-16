@@ -76,9 +76,9 @@ This section explains how to set up the project locally.
 - **Maximum Summary Length**: Sets the maximum word count for the summary (Range: 50–500).
 - **Minimum Summary Length**: Sets the minimum word count (Range: 10–100).
 - **Length Penalty**: Adjusts brevity vs. coverage:
-  - **< 1.0**: Produces concise summaries.
-  - **> 1.0**: Generates longer summaries.
-  - **1.0**: Neutral balance.
+  - **< 1.5**: Produces concise summaries.
+  - **> 1.5**: Generates longer summaries.
+  - **1.5**: Neutral balance.
 
 ### Installation
 

@@ -128,8 +128,12 @@ if uploaded_file or manual_text.strip():
             with st.spinner("Summarizing..."):
                 summary = summarize_text(extracted_text, max_length, min_length, length_penalty)
                 if summary:
-                    st.subheader("Generated Summary")
-                    st.write(summary)
+                    # Convert summary into points
+                    sentences = summary.split(". ")
+                    points = [sentence.strip() for sentence in sentences if sentence.strip()]
+                    st.subheader("Generated Summary (in Points)")
+                    for idx, point in enumerate(points, start=1):
+                        st.write(f"{idx}. {point}")
 
                     # Save and download summary as PDF
                     pdf_output = create_pdf_in_memory(summary)
