@@ -92,8 +92,10 @@ This section explains how to set up the project locally.
 2. Setup the environment:
    ```sh
   python -m venv env
-  source env/bin/activate  # For Linux/MacOS
-  env\Scripts\activate     # For Windows
+
+  source env/bin/activate  ( For Linux/MacOS )
+  
+  env\Scripts\activate     ( For Windows )
 
    ```
 
