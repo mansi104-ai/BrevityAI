@@ -5,6 +5,7 @@ from PyPDF2 import PdfReader
 import json
 from io import BytesIO
 from fpdf import FPDF as FPDF2  # Using fpdf2 for Unicode support
+import os
 
 # Load T5 model and tokenizer
 model_name = "t5-small"
@@ -83,8 +84,14 @@ def create_pdf_in_memory(summary_text):
         pdf.add_page()
 
         # Add a Unicode-compatible font
-        pdf.add_font("FreeSerif", "", "FreeSerif.ttf", uni=True)  # Ensure font file is accessible
-        pdf.set_font("FreeSerif", size=12)
+        font_path = "FreeSerif.ttf"  # Replace with the correct path if not in the same directory
+        if os.path.exists(font_path):
+            pdf.add_font("FreeSerif", "", font_path, uni=True)
+            pdf.set_font("FreeSerif", size=12)
+        else:
+            # Fallback: Replace unsupported characters
+            summary_text = summary_text.encode('latin-1', 'replace').decode('latin-1')
+            pdf.set_font("Arial", size=12)
 
         # Add text content
         pdf.multi_cell(0, 10, summary_text)
