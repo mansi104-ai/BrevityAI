@@ -107,14 +107,17 @@ def create_pdf_in_memory(summary_text):
 
 # App Interface
 st.markdown(
+    
     """
     <div style="text-align: center;">
-        <img src="/logo_2.png" alt="BrevityAI Logo" style="height: 100px; margin-bottom: 20px;">
+        <img src="logo_2.png" alt="BrevityAI Logo" style="height: 100px; margin-bottom: 20px;">
     </div>
     <h1 class="title">📄 Text Summarization App</h1>
     """,
     unsafe_allow_html=True,
 )
+
+
 
 st.write("Upload a PDF/JSON file or enter text to summarize.")
 
