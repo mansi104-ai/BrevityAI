@@ -15,9 +15,9 @@
     <br />
     <a href="https://your-demo-link.com">View Demo</a>
     ·
-    <a href="https://github.com/your-username/BrevityAI/issues">Report Bug</a>
+    <a href="https://github.com/mansi104-ai/BrevityAI/issues/new">Report Bug</a>
     ·
-    <a href="https://github.com/your-username/BrevityAI/issues">Request Feature</a>
+    <a href="https://github.com/mansi104-ai/BrevityAI/issues">Request Feature</a>
   </p>
 </div>
 
@@ -39,7 +39,7 @@
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
+    <!-- <li><a href="#license">License</a></li> -->
   </ol>
 
 <!-- ABOUT THE PROJECT -->
@@ -73,15 +73,125 @@ Key Features:
 This section explains how to set up the project locally.
 
 ### Keywords
-1. Maximum summary length : Adjust the number of words you want in your summary. (Range 50 - 500)
-2. Minimum summary length : Adjust the minimum number of words that should be present in your summary (Range 10 - 100)
-3. length penalty : It refers to the tradeoff between the quality of the summary and the length of the summary.
->If you want more precise summary in shorter sequences , keep the penalty < 1.0.If you wish to obtain longer sequences of the summary , kepp the penalty > 1.0. Setting it to 1.0 has neutral effect.
+- **Maximum Summary Length**: Sets the maximum word count for the summary (Range: 50–500).
+- **Minimum Summary Length**: Sets the minimum word count (Range: 10–100).
+- **Length Penalty**: Adjusts brevity vs. coverage:
+  - **< 1.0**: Produces concise summaries.
+  - **> 1.0**: Generates longer summaries.
+  - **1.0**: Neutral balance.
 
 ### Installation
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-username/BrevityAI.git
+   git clone https://github.com/mansi104-ai/BrevityAI.git
 
-2. 
+   cd BrevityAI
+   ```
+
+2. Setup the environment:
+   ```sh
+  python -m venv env
+  source env/bin/activate  # For Linux/MacOS
+  env\Scripts\activate     # For Windows
+
+   ```
+
+3. Install the dependencies :
+  ```sh
+  pip install -r requirements.txt
+  ```
+
+4. Run the application : 
+  ```sh
+  streamlit run main.py
+  ```
+5. Access the App: Open your browser and navigate to http://localhost:8501.
+
+## Usage
+
+Follow these steps to use the **Text Summarization App**:
+
+1. **Launch the App**:
+   - Start the app by running the following command:
+     ```bash
+     streamlit run app.py
+     ```
+   - Open your browser and navigate to `http://localhost:8501`.
+
+2. **Choose Input Method**:
+   - **File Upload**: 
+     - Click on "Upload a file" to upload a PDF or JSON file.
+     - The app extracts text from the uploaded file.
+   - **Manual Input**: 
+     - Enter or paste text directly into the provided text area.
+
+3. **Customize Summary Settings**:
+   - Use the sliders to adjust:
+     - Maximum summary length.
+     - Minimum summary length.
+     - Length penalty (controls brevity).
+   - Default values are set for quick summarization.
+
+4. **Generate Summary**:
+   - Click the **"Generate Summary"** button.
+   - Wait for the app to process and display the summary.
+
+5. **Download Summary**:
+   - After the summary is generated, click on the **"Download Summary as PDF"** button to save the summary locally.
+
+---
+
+## Contributing
+
+We welcome contributions to enhance the **Text Summarization App**! Here's how you can contribute:
+
+### Steps to Contribute
+1. **Fork the Repository**:
+   - Navigate to the GitHub repository and click **Fork**.
+
+2. **Clone the Forked Repository**:
+   - Clone the repository to your local system:
+     ```bash
+     git clone https://github.com/mansi104-ai/BrevityAI
+     
+     ```
+
+3. **Create a Branch**:
+   - Create a new branch for your feature or bug fix:
+     ```bash
+     git checkout -b feature-or-bugfix-name
+     ```
+
+4. **Make Your Changes**:
+   - Modify the code or documentation as needed.
+
+5. **Test Your Changes**:
+   - Run the app locally and ensure all changes work as expected.
+
+6. **Commit and Push**:
+   - Commit your changes with a descriptive message:
+     ```bash
+     git add .
+     git commit -m "Description of changes"
+     ```
+   - Push the changes to your forked repository:
+     ```bash
+     git push origin feature-or-bugfix-name
+     ```
+
+7. **Create a Pull Request**:
+   - Open a pull request from your forked repository to the original repository.
+   - Provide a clear description of your changes and the problem they solve.
+
+---
+
+### Contribution Guidelines
+- Adhere to the existing code style and conventions.
+- Ensure that all dependencies are up to date.
+- Document your changes clearly in the `README` file if applicable.
+- Test your changes thoroughly before submitting a pull request.
+
+---
+
+We appreciate your contributions and look forward to building this app together!
