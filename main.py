@@ -45,7 +45,7 @@ def extract_text_from_json(file):
         return ""
 
 # Summarize text
-def summarize_text(text, max_length=200, min_length=100, length_penalty=1.5):
+def summarize_text(text, max_length=200, min_length=100, length_penalty=1.5, summary_type='paragraph'):
     try:
         inputs = tokenizer.encode(
             "summarize: " + text,
@@ -53,6 +53,7 @@ def summarize_text(text, max_length=200, min_length=100, length_penalty=1.5):
             max_length=512,
             truncation=True,
         ).to(model.device)
+        
         summary_ids = model.generate(
             inputs,
             max_length=max_length,
@@ -61,7 +62,15 @@ def summarize_text(text, max_length=200, min_length=100, length_penalty=1.5):
             num_beams=4,
             early_stopping=True,
         )
-        return tokenizer.decode(summary_ids[0], skip_special_tokens=True)
+        
+        summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
+        
+        # If points are requested, split summary into points
+        if summary_type == 'points':
+            summary = summary.replace('. ', '.\n- ')
+            summary = '- ' + summary  # Add bullet points to start
+        
+        return summary
     except Exception as e:
         st.error("Error generating summary.")
         return ""
@@ -69,16 +78,24 @@ def summarize_text(text, max_length=200, min_length=100, length_penalty=1.5):
 # Save summary to PDF
 def create_pdf_in_memory(summary_text):
     try:
+        # Create a PDF object
         pdf = FPDF()
         pdf.add_page()
+
+        # Set font for the document
         pdf.set_font("Arial", size=12)
+
+        # Add text content, ensuring it handles long content correctly
         pdf.multi_cell(0, 10, summary_text)
+
+        # Save the output to a BytesIO object
         pdf_output = BytesIO()
-        pdf.output(pdf_output, dest="S").encode('latin1')
-        pdf_output.seek(0)
+        pdf.output(pdf_output, dest="S")  # 'S' saves to a string, instead of a file on disk
+        pdf_output.seek(0)  # Reset pointer to the start of the BytesIO object
         return pdf_output
     except Exception as e:
-        st.error("Error creating PDF.")
+        # Catch any exceptions and log them
+        st.error(f"Error creating PDF: {e}")
         return None
 
 # App Interface
@@ -122,29 +139,16 @@ if uploaded_file or manual_text.strip():
         max_length = st.slider("Maximum Summary Length", 50, 500, 200)
         min_length = st.slider("Minimum Summary Length", 10, 100, 60)
         length_penalty = st.slider("Length Penalty", 1.0, 3.0, 1.5)
-
-        # Toggle button for summary format choice
-        summary_format = st.radio(
-            "Select the summary format",
-            ("Paragraph", "Points")
-        )
+        
+        summary_type = st.radio("Choose summary type", ('paragraph', 'points'))
 
         # Generate summary button
         if st.button("Generate Summary"):
             with st.spinner("Summarizing..."):
-                summary = summarize_text(extracted_text, max_length, min_length, length_penalty)
+                summary = summarize_text(extracted_text, max_length, min_length, length_penalty, summary_type)
                 if summary:
-                    if summary_format == "Points":
-                        # Convert summary into points
-                        sentences = summary.split(". ")
-                        points = [sentence.strip() for sentence in sentences if sentence.strip()]
-                        st.subheader("Generated Summary (in Points)")
-                        for idx, point in enumerate(points, start=1):
-                            st.write(f"{idx}. {point}")
-                    else:
-                        # Display as a paragraph
-                        st.subheader("Generated Summary (Paragraph)")
-                        st.write(summary)
+                    st.subheader("Generated Summary")
+                    st.write(summary)
 
                     # Save and download summary as PDF
                     pdf_output = create_pdf_in_memory(summary)
