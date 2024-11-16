@@ -33,6 +33,7 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
+        <li><a href="#Keywords">Keywords</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
@@ -71,8 +72,16 @@ Key Features:
 
 This section explains how to set up the project locally.
 
+### Keywords
+1. Maximum summary length : Adjust the number of words you want in your summary. (Range 50 - 500)
+2. Minimum summary length : Adjust the minimum number of words that should be present in your summary (Range 10 - 100)
+3. length penalty : It refers to the tradeoff between the quality of the summary and the length of the summary.
+>If you want more precise summary in shorter sequences , keep the penalty < 1.0.If you wish to obtain longer sequences of the summary , kepp the penalty > 1.0. Setting it to 1.0 has neutral effect.
+
 ### Installation
 
 1. Clone the repository:
    ```sh
    git clone https://github.com/your-username/BrevityAI.git
+
+2. 

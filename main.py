@@ -111,7 +111,7 @@ if uploaded_file or manual_text.strip():
         # Summary options
         st.subheader("Summary Options")
         max_length = st.slider("Maximum Summary Length", 50, 500, 200)
-        min_length = st.slider("Minimum Summary Length", 30, 150, 100)
+        min_length = st.slider("Minimum Summary Length", 10, 100, 60)
         length_penalty = st.slider("Length Penalty", 1.0, 3.0, 1.5)
 
         # Generate summary button
